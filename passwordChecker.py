@@ -1,6 +1,7 @@
 import requests
 import hashlib
 import sys
+#import Tkinter as tk
 
 def request_api_data(query):
     url = 'https://api.pwnedpasswords.com/range/' + query
@@ -32,5 +33,12 @@ def main(args):
         else:
             print('Your password is safe.')
     return 'Done!'
+
+#root = tk.Tk()
+#root.geometry("400x300")
+#root.title("Password Checker")
+#font = ("poppins",25,"normal")
+#root.mainloop()
+
 if __name__ == '__main__':
     sys.exit(main(sys.argv[1:]))
