@@ -1,7 +1,7 @@
 import requests
 import hashlib
 import sys
-#import Tkinter as tk
+from tkinter import *
 
 def request_api_data(query):
     url = 'https://api.pwnedpasswords.com/range/' + query
@@ -24,21 +24,34 @@ def pwned_api_check(password):
     response = request_api_data(first5)
     return get_leaks(response , tail)
 
-
-def main(args):
-    for password in args:
+def check_pwd():
+    password = passwords.get()
+    if password != "" :
         count = pwned_api_check(password)
-        if count:
-            print(f'{password} was found {count} times.')
+        if count == 0:
+            l = Label(root,text="Your Password has not been Hacked yet. It is SAFE.",fg="green")
+            l.pack()
         else:
-            print('Your password is safe.')
-    return 'Done!'
+            l = Label(root,text=password+" was hacked "+count+" times. NOT SAFE.",fg="red")
+            l.pack()
+    else :
+        l = Label(root,text="Password field is Empty.")
+        l.pack()
 
-#root = tk.Tk()
-#root.geometry("400x300")
-#root.title("Password Checker")
-#font = ("poppins",25,"normal")
-#root.mainloop()
 
-if __name__ == '__main__':
-    sys.exit(main(sys.argv[1:]))
+root = Tk()
+root.geometry("500x300")
+root.title("Password Checker")
+font = ("poppins",25,"normal")
+Label(root,text="Password Checker",width="50",bg="gray",font=("Calibri",18,"bold")).pack()
+Label(root,text="").pack()
+Label(root,text="").pack()
+Label(root,text="Enter Password : ",font=("Calibri",18)).pack()
+passwords = StringVar()
+password_entry = Entry(root,textvariable = passwords,width="30")
+password_entry.pack()
+Label(root,text="").pack()
+Button(root,text="Search",command=check_pwd,font=("Calibri",12,"bold")).pack()
+Label(root,text="").pack()
+
+root.mainloop()
