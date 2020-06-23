@@ -29,10 +29,10 @@ def check_pwd():
     if password != "" :
         count = pwned_api_check(password)
         if count == 0:
-            l = Label(root,text="Your Password has not been Hacked yet. It is SAFE.",fg="green")
+            l = Label(root,text="Your Password has not been used yet. It is SAFE.",fg="green")
             l.pack()
         else:
-            l = Label(root,text=password+" was hacked "+count+" times. NOT SAFE.",fg="red")
+            l = Label(root,text=password+" has been used "+count+" times. NOT SAFE.",fg="red")
             l.pack()
     else :
         l = Label(root,text="Password field is Empty.")
